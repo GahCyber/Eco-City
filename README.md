@@ -1,4 +1,4 @@
-# Nome do Projeto
+# Eco-City
 
 ![Logo do Projeto](public/img/logo.jpg) <!-- Opcional: Adicione uma logo -->
 
