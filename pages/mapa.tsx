@@ -1,10 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Mapa = () => {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    setIsClient(true); // Indica que estamos no lado do cliente
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
       const map = L.map('map').setView([-22.12918223115807, -51.39940012356393], 12);
       
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,7 +29,11 @@ const Mapa = () => {
           .bindPopup("🌍 Ponto Ecológico Adicionado!");
       });
     }
-  }, []);
+  }, [isClient]);
+
+  if (!isClient) {
+    return null; // Retorna null no lado do servidor
+  }
 
   return (
     <div className="mapa">
