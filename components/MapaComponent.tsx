@@ -19,6 +19,14 @@ const MapaPontosColeta = () => {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
+      // Ícone personalizado para os pontos de coleta
+      const ecoIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/2921/2921822.png', // Ícone de ecologia
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+      });
+
       // Dados dos pontos de coleta
       const pontosColeta = [
         {
@@ -55,7 +63,7 @@ const MapaPontosColeta = () => {
 
       // Adiciona marcadores no mapa para cada ponto de coleta
       pontosColeta.forEach(ponto => {
-        L.marker(ponto.coordenadas)
+        L.marker(ponto.coordenadas, { icon: ecoIcon })
           .addTo(map)
           .bindPopup(`<strong>${ponto.nome}</strong><br>${ponto.endereco}<br>Tipo: ${ponto.tipo}`);
       });
