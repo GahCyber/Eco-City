@@ -11,13 +11,13 @@ const Zonas = () => {
           <h3>Rotatória do Shopping</h3>
           <img id='rotatoria' src="/img/rotatoria.jpg" alt="Rotatória do Shopping" />
           <p>Zona com grande visibilidade, ideal para empresas.</p>
-          <Link href="/adocao" className="cta-button">Visualizar</Link>
+          <Link href="/mapa" className="cta-button">Visualizar</Link>
         </div>
         <div className="zona-card">
           <h3>Parque Ecológico</h3>
           <img id='rotatoria' src="/img/parque-ecologico.png" alt="Rotatória do Shopping" />
           <p>Ótima opção para promover áreas de lazer e ecologia.</p>
-          <Link href="/adocao" className="cta-button">Adotar esta zona</Link>
+          <Link href="/mapa" className="cta-button">Adotar esta zona</Link>
         </div>
       </div>
     </div>
