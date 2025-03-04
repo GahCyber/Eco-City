@@ -54,15 +54,18 @@ const MapaComponent = () => {
             <br><button id='btn-${ponto.nome}'>+1</button>`;
             setTimeout(() => {
               document.getElementById(`btn-${ponto.nome}`).addEventListener('click', () => {
-                setContagem(prev => ({ ...prev, [ponto.nome]: prev[ponto.nome] + 1 }));
-                document.getElementById(`contagem-${ponto.nome}`).innerText = contagem[ponto.nome] + 1;
+                setContagem(prev => {
+                  const novoValor = prev[ponto.nome] + 1;
+                  document.getElementById(`contagem-${ponto.nome}`).innerText = novoValor;
+                  return { ...prev, [ponto.nome]: novoValor };
+                });
               });
             }, 10);
             return div;
           });
       });
     }
-  }, [isClient, contagem]);
+  }, [isClient]);
 
   if (!isClient) return null;
 
