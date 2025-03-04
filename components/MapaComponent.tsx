@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 const MapaComponent = () => {
   const [isClient, setIsClient] = useState(false);
+  const [contagem, setContagem] = useState({});
 
   useEffect(() => {
     setIsClient(true);
@@ -15,25 +16,18 @@ const MapaComponent = () => {
       const map = L.map('map', {
         center: [-22.1256, -51.3889],
         zoom: 13,
-        layers: [
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-          })
-        ],
-        preferCanvas: true,
+        zoomControl: false,
       });
 
-      map.eachLayer(layer => {
-        if (layer instanceof L.Marker) {
-          map.removeLayer(layer);
-        }
-      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }).addTo(map);
 
       const treeIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/490/490091.png',
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        popupAnchor: [0, -32],
       });
 
       const pontosColeta = [
@@ -44,13 +38,31 @@ const MapaComponent = () => {
         { nome: 'Antigo pátio de veículos', endereco: 'Avenida Juscelino Kubitschek de Oliveira, próximo ao Prudentão', coordenadas: [-22.1310, -51.4160], tipo: 'Eletrônicos' }
       ];
 
+      const contagemInicial = {};
       pontosColeta.forEach(ponto => {
-        L.marker(ponto.coordenadas, { icon: treeIcon })
+        contagemInicial[ponto.nome] = 0;
+      });
+      setContagem(contagemInicial);
+
+      pontosColeta.forEach(ponto => {
+        const marker = L.marker(ponto.coordenadas, { icon: treeIcon })
           .addTo(map)
-          .bindPopup(`<strong>${ponto.nome}</strong><br>${ponto.endereco}<br>Tipo: ${ponto.tipo}`);
+          .bindPopup(() => {
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>${ponto.nome}</strong><br>${ponto.endereco}<br>Tipo: ${ponto.tipo}<br><br>
+            Coleta: <span id='contagem-${ponto.nome}'>${contagem[ponto.nome]}</span>
+            <br><button id='btn-${ponto.nome}'>+1</button>`;
+            setTimeout(() => {
+              document.getElementById(`btn-${ponto.nome}`).addEventListener('click', () => {
+                setContagem(prev => ({ ...prev, [ponto.nome]: prev[ponto.nome] + 1 }));
+                document.getElementById(`contagem-${ponto.nome}`).innerText = contagem[ponto.nome] + 1;
+              });
+            }, 10);
+            return div;
+          });
       });
     }
-  }, [isClient]);
+  }, [isClient, contagem]);
 
   if (!isClient) return null;
 
