@@ -18,8 +18,8 @@ const MapaComponent = () => {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
-      const ecoIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/128/490/490091.png',
+      const treeIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
@@ -34,7 +34,7 @@ const MapaComponent = () => {
       ];
 
       pontosColeta.forEach(ponto => {
-        L.marker(ponto.coordenadas, { icon: ecoIcon })
+        L.marker(ponto.coordenadas, { icon: treeIcon })
           .addTo(map)
           .bindPopup(`<strong>${ponto.nome}</strong><br>${ponto.endereco}<br>Tipo: ${ponto.tipo}`);
       });
