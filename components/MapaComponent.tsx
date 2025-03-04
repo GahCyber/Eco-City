@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Chart } from 'react-google-charts';
 
 const MapaComponent = () => {
   const [isClient, setIsClient] = useState(false);
@@ -69,7 +70,17 @@ const MapaComponent = () => {
 
   if (!isClient) return null;
 
-  return <div id="map" style={{ width: '100vw', height: '100vh' }}></div>;
+  const chartData = [['Ponto de Coleta', 'Quantidade Coletada'], ...Object.entries(contagem)];
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <div id="map" style={{ width: '100%', height: '100%' }}></div>
+      <div style={{ position: 'absolute', top: 20, right: 20, backgroundColor: 'white', padding: '10px', borderRadius: '5px', boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
+        <h3>Quantidade Coletada</h3>
+        <Chart chartType="PieChart" width="200px" height="200px" data={chartData} />
+      </div>
+    </div>
+  );
 };
 
 export default MapaComponent;
