@@ -19,7 +19,7 @@ const MapaComponent = () => {
       }).addTo(map);
 
       const ecoIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/128/2921/2921822.png',
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/490/490091.png',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
