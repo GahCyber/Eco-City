@@ -7,7 +7,7 @@ const MapaComponent = dynamic(() => import('../components/MapaComponent'), { ssr
 
 const MapaPage = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div>
       <MapaComponent />
     </div>
   );
