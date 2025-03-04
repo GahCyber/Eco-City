@@ -72,14 +72,4 @@ const MapaComponent = () => {
 
   if (!isClient) return null;
 
-  return (
-    <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
-      <div id="map" style={{ flex: 1 }}></div>
-      <div style={{ width: '300px', background: 'white', padding: '10px', position: 'absolute', top: '10px', right: '10px' }}>
-        <GraficoColetas dados={contagem} />
-      </div>
-    </div>
-  );
-};
-
 export default MapaComponent;
