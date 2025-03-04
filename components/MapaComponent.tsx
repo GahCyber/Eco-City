@@ -2,11 +2,24 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Chart } from 'react-google-charts';
+import { Bar } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 const MapaComponent = () => {
   const [isClient, setIsClient] = useState(false);
   const [contagem, setContagem] = useState({});
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [{
+      label: 'Coletas',
+      data: [],
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1
+    }]
+  });
 
   useEffect(() => {
     setIsClient(true);
@@ -45,6 +58,19 @@ const MapaComponent = () => {
       });
       setContagem(contagemInicial);
 
+      const atualizarGrafico = (novoContagem) => {
+        setChartData({
+          labels: Object.keys(novoContagem),
+          datasets: [{
+            label: 'Coletas',
+            data: Object.values(novoContagem),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        });
+      };
+
       pontosColeta.forEach(ponto => {
         const marker = L.marker(ponto.coordenadas, { icon: treeIcon })
           .addTo(map)
@@ -58,7 +84,9 @@ const MapaComponent = () => {
                 setContagem(prev => {
                   const novoValor = prev[ponto.nome] + 1;
                   document.getElementById(`contagem-${ponto.nome}`).innerText = novoValor;
-                  return { ...prev, [ponto.nome]: novoValor };
+                  const novoContagem = { ...prev, [ponto.nome]: novoValor };
+                  atualizarGrafico(novoContagem);
+                  return novoContagem;
                 });
               });
             }, 10);
@@ -70,14 +98,12 @@ const MapaComponent = () => {
 
   if (!isClient) return null;
 
-  const chartData = [['Ponto de Coleta', 'Quantidade Coletada'], ...Object.entries(contagem)];
-
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <div id="map" style={{ width: '100%', height: '100%' }}></div>
-      <div style={{ position: 'absolute', top: 20, right: 20, backgroundColor: 'white', padding: '10px', borderRadius: '5px', boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
-        <h3>Quantidade Coletada</h3>
-        <Chart chartType="PieChart" width="200px" height="200px" data={chartData} />
+    <div style={{ position: 'relative' }}>
+      <div id="map" style={{ width: '100vw', height: '100vh' }}></div>
+      <div style={{ position: 'absolute', top: 10, right: 10, background: 'white', padding: 10, borderRadius: 5, zIndex: 1000 }}>
+        <h3>Coletas</h3>
+        <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
       </div>
     </div>
   );
