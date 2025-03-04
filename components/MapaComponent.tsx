@@ -2,13 +2,24 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import dynamic from 'next/dynamic';
+import { Bar } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
 
-const GraficoColetas = dynamic(() => import('./GraficoColetas'), { ssr: false });
+Chart.register(...registerables);
 
 const MapaComponent = () => {
   const [isClient, setIsClient] = useState(false);
   const [contagem, setContagem] = useState({});
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [{
+      label: 'Coletas',
+      data: [],
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1
+    }]
+  });
 
   useEffect(() => {
     setIsClient(true);
@@ -47,8 +58,21 @@ const MapaComponent = () => {
       });
       setContagem(contagemInicial);
 
+      const atualizarGrafico = (novoContagem) => {
+        setChartData({
+          labels: Object.keys(novoContagem),
+          datasets: [{
+            label: 'Coletas',
+            data: Object.values(novoContagem),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        });
+      };
+
       pontosColeta.forEach(ponto => {
-        L.marker(ponto.coordenadas, { icon: treeIcon })
+        const marker = L.marker(ponto.coordenadas, { icon: treeIcon })
           .addTo(map)
           .bindPopup(() => {
             const div = document.createElement('div');
@@ -60,7 +84,9 @@ const MapaComponent = () => {
                 setContagem(prev => {
                   const novoValor = prev[ponto.nome] + 1;
                   document.getElementById(`contagem-${ponto.nome}`).innerText = novoValor;
-                  return { ...prev, [ponto.nome]: novoValor };
+                  const novoContagem = { ...prev, [ponto.nome]: novoValor };
+                  atualizarGrafico(novoContagem);
+                  return novoContagem;
                 });
               });
             }, 10);
@@ -71,5 +97,16 @@ const MapaComponent = () => {
   }, [isClient]);
 
   if (!isClient) return null;
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <div id="map" style={{ width: '100vw', height: '100vh' }}></div>
+      <div style={{ position: 'absolute', top: 10, right: 10, background: 'white', padding: 10, borderRadius: 5, zIndex: 1000 }}>
+        <h3>Coletas</h3>
+        <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+      </div>
+    </div>
+  );
+};
 
 export default MapaComponent;
