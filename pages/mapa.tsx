@@ -9,7 +9,6 @@ const MapaPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <MapaComponent />
-      <GraficoColetas />
     </div>
   );
 };
