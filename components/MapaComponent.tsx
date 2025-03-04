@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import dynamic from 'next/dynamic';
+
+const GraficoColetas = dynamic(() => import('./GraficoColetas'), { ssr: false });
 
 const MapaComponent = () => {
   const [isClient, setIsClient] = useState(false);
@@ -45,7 +48,7 @@ const MapaComponent = () => {
       setContagem(contagemInicial);
 
       pontosColeta.forEach(ponto => {
-        const marker = L.marker(ponto.coordenadas, { icon: treeIcon })
+        L.marker(ponto.coordenadas, { icon: treeIcon })
           .addTo(map)
           .bindPopup(() => {
             const div = document.createElement('div');
@@ -69,7 +72,14 @@ const MapaComponent = () => {
 
   if (!isClient) return null;
 
-  return <div id="map" style={{ width: '100vw', height: '100vh' }}></div>;
+  return (
+    <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
+      <div id="map" style={{ flex: 1 }}></div>
+      <div style={{ width: '300px', background: 'white', padding: '10px', position: 'absolute', top: '10px', right: '10px' }}>
+        <GraficoColetas dados={contagem} />
+      </div>
+    </div>
+  );
 };
 
 export default MapaComponent;
