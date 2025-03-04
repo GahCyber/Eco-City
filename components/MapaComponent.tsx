@@ -30,7 +30,7 @@ const MapaComponent = () => {
       });
 
       const treeIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
+        iconUrl: 'https://www.flaticon.com/br/icone-gratis/arvore_490091',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
