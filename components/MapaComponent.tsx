@@ -12,11 +12,22 @@ const MapaComponent = () => {
 
   useEffect(() => {
     if (isClient) {
-      const map = L.map('map').setView([-22.1256, -51.3889], 13);
+      const map = L.map('map', {
+        center: [-22.1256, -51.3889],
+        zoom: 13,
+        layers: [
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+          })
+        ],
+        preferCanvas: true,
+      });
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
 
       const treeIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
@@ -43,7 +54,7 @@ const MapaComponent = () => {
 
   if (!isClient) return null;
 
-  return <div id="map" style={{ width: '100%', height: '500px' }}></div>;
+  return <div id="map" style={{ width: '100vw', height: '100vh' }}></div>;
 };
 
 export default MapaComponent;
