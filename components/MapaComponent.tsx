@@ -27,17 +27,10 @@ const MapaComponent = () => {
 
   useEffect(() => {
     if (isClient) {
-      const bounds = L.latLngBounds(
-        L.latLng(-22.1800, -51.4700),
-        L.latLng(-22.0700, -51.3200)
-      );
-      
       const map = L.map('map', {
         center: [-22.1256, -51.3889],
         zoom: 13,
         zoomControl: false,
-        maxBounds: bounds,
-        maxBoundsViscosity: 1.0
       });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
