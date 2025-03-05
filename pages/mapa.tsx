@@ -7,6 +7,7 @@ const MapaComponent = dynamic(() => import('../components/MapaComponent'), { ssr
 const MapaPage = () => {
   return (
     <div>
+      <h1>Página do Mapa</h1>
       <MapaComponent />
     </div>
   );
