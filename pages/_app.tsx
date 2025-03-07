@@ -4,6 +4,7 @@ import "../styles/adocao.scss"
 import "../styles/contato.scss"
 import "../styles/empresas.scss"
 import "../styles/zonas.scss"
+import "../styles/mapa.scss"
 import Footer from '../components/footer';
 import React from 'react';  
 function MyApp({ Component, pageProps }: AppProps) {
