@@ -1,6 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "chart.js": "^4.4.8",
+=======
+>>>>>>> 0d59e41ee1887694290ca9ffb4bd20cb2a0e202d
     "leaflet": "^1.9.4",
     "next": "^15.1.7",
     "react": "^19.0.0",
@@ -17,6 +20,8 @@
   "devDependencies": {
     "@types/node": "22.13.4",
     "@types/react": "19.0.8",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "react-chartjs-2": "^4.0.0", 
+    "chart.js": "^4.0.0"
   }
 }

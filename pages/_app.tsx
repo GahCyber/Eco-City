@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import '../styles/global.scss';
-import "../styles/adocao.scss"
+import "../styles/mapa.scss"
 import "../styles/contato.scss"
 import "../styles/empresas.scss"
 import "../styles/zonas.scss"

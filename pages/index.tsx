@@ -12,7 +12,7 @@ const Home = () => {
         <nav>
           <ul>
             <li><Link href="/">Home</Link></li>
-            <li><Link href="/zonas">Zonas Verdes</Link></li>
+            <li><Link href="/zonas">Zonas de Coleta</Link></li>
             <li><Link href="/sobre">Sobre</Link></li>
             <li><Link href="/contato">Contato</Link></li>
           </ul>
@@ -27,9 +27,9 @@ const Home = () => {
             <br />
             com o <span className="green">Eco City</span>
           </h1>
-          <p className="typewriter">Adote zonas verdes, promova a sustentabilidade.</p>
+          <p className="typewriter">Discarte os resíduos corretamente, promova a sustentabilidade.</p>
           <Link href="/zonas" className="cta-button">
-            Explorar Zonas
+            Explorar Pontos de Coleta
           </Link>
         </div>
       </section>
@@ -39,12 +39,12 @@ const Home = () => {
         <h2>O que oferecemos?</h2>
         <div className="feature-grid">
           <div className="feature-card">
-            <h3>Adoção de Zonas</h3>
-            <p>Encontre e adote zonas verdes para sua empresa.</p>
+            <h3>Mapeamento dos pontos de coleta.</h3>
+            <p>Encontre facilmente os pontos.</p>
           </div>
           <div className="feature-card">
             <h3>Recuperação Ecológica</h3>
-            <p>Apoie a recuperação de áreas afetadas por queimadas.</p>
+            <p>Apoie a recuperação de áreas afetadas por discarte indevido do lixo.</p>
           </div>
           <div className="feature-card">
             <h3>Eventos Ecológicos</h3>

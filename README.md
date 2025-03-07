@@ -1,8 +1,8 @@
-# Nome do Projeto
+# Eco-City
 
 ![Logo do Projeto](public/img/logo.jpg) <!-- Opcional: Adicione uma logo -->
 
-Um projeto incrível desenvolvido com [Next.js](https://nextjs.org/) para [descreva o propósito do projeto].
+Um projeto incrível desenvolvido com [Next.js](https://nextjs.org/) com objetivo de ajudar na ecologia.
 
 ---
 

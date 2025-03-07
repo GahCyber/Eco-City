@@ -17,7 +17,11 @@ const Zonas = () => {
           <h3>Parque Ecológico</h3>
           <img id='rotatoria' src="/img/parque-ecologico.png" alt="Rotatória do Shopping" />
           <p>Ótima opção para promover áreas de lazer e ecologia.</p>
+<<<<<<< HEAD
           <Link href="/mapa " className="cta-button">Visualizar</Link>
+=======
+          <Link href="/mapa" className="cta-button">Adotar esta zona</Link>
+>>>>>>> 0d59e41ee1887694290ca9ffb4bd20cb2a0e202d
         </div>
       </div>
     </div>
